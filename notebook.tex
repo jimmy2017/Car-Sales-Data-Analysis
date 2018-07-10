@@ -1,0 +1,813 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{eBay car sales}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Data cleaning with examples: Cleaning eBay used cars data with
+Pandas}\label{data-cleaning-with-examples-cleaning-ebay-used-cars-data-with-pandas}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Import the neccessary modules for data manipulation and visual representation}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib} \PY{k}{as} \PY{n+nn}{matplot}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{display.max\PYZus{}columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}  
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{autos.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latin\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{autos.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latin\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{det} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt\PYZus{}km\PYZus{}year\PYZus{}powerPS\PYZus{}minPrice\PYZus{}maxPrice\PYZus{}avgPrice\PYZus{}sdPrice.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Understanding Data}\label{understanding-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}            dateCrawled                            name  seller offerType  \textbackslash{}
+        0  2016-03-24 11:52:17                      Golf\_3\_1.6  privat   Angebot   
+        1  2016-03-24 10:58:45            A5\_Sportback\_2.7\_Tdi  privat   Angebot   
+        2  2016-03-14 12:52:21  Jeep\_Grand\_Cherokee\_"Overland"  privat   Angebot   
+        3  2016-03-17 16:54:04              GOLF\_4\_1\_4\_\_3TÜRER  privat   Angebot   
+        4  2016-03-31 17:25:20  Skoda\_Fabia\_1.4\_TDI\_PD\_Classic  privat   Angebot   
+        
+           price abtest vehicleType  yearOfRegistration    gearbox  powerPS  model  \textbackslash{}
+        0    480   test         NaN                1993    manuell        0   golf   
+        1  18300   test       coupe                2011    manuell      190    NaN   
+        2   9800   test         suv                2004  automatik      163  grand   
+        3   1500   test  kleinwagen                2001    manuell       75   golf   
+        4   3600   test  kleinwagen                2008    manuell       69  fabia   
+        
+           kilometer  monthOfRegistration fuelType       brand notRepairedDamage  \textbackslash{}
+        0     150000                    0   benzin  volkswagen               NaN   
+        1     125000                    5   diesel        audi                ja   
+        2     125000                    8   diesel        jeep               NaN   
+        3     150000                    6   benzin  volkswagen              nein   
+        4      90000                    7   diesel       skoda              nein   
+        
+                   dateCreated  nrOfPictures  postalCode             lastSeen  
+        0  2016-03-24 00:00:00             0       70435  2016-04-07 03:16:57  
+        1  2016-03-24 00:00:00             0       66954  2016-04-07 01:46:50  
+        2  2016-03-14 00:00:00             0       90480  2016-04-05 12:47:46  
+        3  2016-03-17 00:00:00             0       91074  2016-03-17 17:40:17  
+        4  2016-03-31 00:00:00             0       60437  2016-04-06 10:17:21  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}                 dateCrawled                                          name  \textbackslash{}
+        371523  2016-03-14 17:48:27                    Suche\_t4\_\_\_vito\_ab\_6\_sitze   
+        371524  2016-03-05 19:56:21         Smart\_smart\_leistungssteigerung\_100ps   
+        371525  2016-03-19 18:57:12            Volkswagen\_Multivan\_T4\_TDI\_7DC\_UY2   
+        371526  2016-03-20 19:41:08                        VW\_Golf\_Kombi\_1\_9l\_TDI   
+        371527  2016-03-07 19:39:19  BMW\_M135i\_vollausgestattet\_NP\_52.720\_\_\_\_Euro   
+        
+                seller offerType  price   abtest vehicleType  yearOfRegistration  \textbackslash{}
+        371523  privat   Angebot   2200     test         NaN                2005   
+        371524  privat   Angebot   1199     test      cabrio                2000   
+        371525  privat   Angebot   9200     test         bus                1996   
+        371526  privat   Angebot   3400     test       kombi                2002   
+        371527  privat   Angebot  28990  control   limousine                2013   
+        
+                  gearbox  powerPS        model  kilometer  monthOfRegistration  \textbackslash{}
+        371523        NaN        0          NaN      20000                    1   
+        371524  automatik      101       fortwo     125000                    3   
+        371525    manuell      102  transporter     150000                    3   
+        371526    manuell      100         golf     150000                    6   
+        371527    manuell      320      m\_reihe      50000                    8   
+        
+               fuelType           brand notRepairedDamage          dateCreated  \textbackslash{}
+        371523      NaN  sonstige\_autos               NaN  2016-03-14 00:00:00   
+        371524   benzin           smart              nein  2016-03-05 00:00:00   
+        371525   diesel      volkswagen              nein  2016-03-19 00:00:00   
+        371526   diesel      volkswagen               NaN  2016-03-20 00:00:00   
+        371527   benzin             bmw              nein  2016-03-07 00:00:00   
+        
+                nrOfPictures  postalCode             lastSeen  
+        371523             0       39576  2016-04-06 00:46:52  
+        371524             0       26135  2016-03-11 18:17:12  
+        371525             0       87439  2016-04-07 07:15:26  
+        371526             0       40764  2016-03-24 12:45:21  
+        371527             0       73326  2016-03-22 03:17:10  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} Index(['dateCrawled', 'name', 'seller', 'offerType', 'price', 'abtest',
+               'vehicleType', 'yearOfRegistration', 'gearbox', 'powerPS', 'model',
+               'kilometer', 'monthOfRegistration', 'fuelType', 'brand',
+               'notRepairedDamage', 'dateCreated', 'nrOfPictures', 'postalCode',
+               'lastSeen'],
+              dtype='object')
+\end{Verbatim}
+            
+    \subsection{Removing obvious
+inconsistencies}\label{removing-obvious-inconsistencies}
+
+\subsubsection{Deleting columns}\label{deleting-columns}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} finding rows where seller is not labels \PYZsq{}privat\PYZsq{}}
+        \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seller}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{privat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} (3, 20)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offerType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Angebot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} (12, 20)
+\end{Verbatim}
+            
+    Since only 3 rows out of the whole dataset has "gewerblich" (commercial)
+as seller type, we can drop the seller colum. There are other
+unnecessary or unuseful columns. For example, due to inconsistencies in
+name labels and the fact that we're not doing a linguistic analysis, we
+can delete the name column, which takes up a lot of space.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seller}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}            dateCrawled offerType  price abtest vehicleType  \textbackslash{}
+        0  2016-03-24 11:52:17   Angebot    480   test         NaN   
+        1  2016-03-24 10:58:45   Angebot  18300   test       coupe   
+        2  2016-03-14 12:52:21   Angebot   9800   test         suv   
+        
+           yearOfRegistration    gearbox  powerPS  model  kilometer  \textbackslash{}
+        0                1993    manuell        0   golf     150000   
+        1                2011    manuell      190    NaN     125000   
+        2                2004  automatik      163  grand     125000   
+        
+           monthOfRegistration fuelType       brand notRepairedDamage  \textbackslash{}
+        0                    0   benzin  volkswagen               NaN   
+        1                    5   diesel        audi                ja   
+        2                    8   diesel        jeep               NaN   
+        
+                   dateCreated  nrOfPictures  postalCode             lastSeen  
+        0  2016-03-24 00:00:00             0       70435  2016-04-07 03:16:57  
+        1  2016-03-24 00:00:00             0       66954  2016-04-07 01:46:50  
+        2  2016-03-14 00:00:00             0       90480  2016-04-05 12:47:46  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} (371528, 18)
+\end{Verbatim}
+            
+    \subsubsection{Deleting Rows}\label{deleting-rows}
+
+    \paragraph{Invalid values}\label{invalid-values}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Counting the number of rows with NaN values}
+         \PY{n}{np}\PY{o}{.}\PY{n}{count\PYZus{}nonzero}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 184008
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} there are many ways to find the \PYZsh{} of rows with NaN or missing values}
+         \PY{c+c1}{\PYZsh{} in this case, we have 110572 car sale entries with NaN values}
+         \PY{n}{df1} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} axis=1 specifies rows instead of columns}
+         \PY{n}{df1}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} (110572, 18)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{thresh}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{subset}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} (260956, 18)
+\end{Verbatim}
+            
+    \paragraph{Model and Brand}\label{model-and-brand}
+
+Dropping rows where model and brand are not specified
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{brand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{thresh}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}                 dateCrawled offerType  price   abtest vehicleType  \textbackslash{}
+         3       2016-03-17 16:54:04   Angebot   1500     test  kleinwagen   
+         4       2016-03-31 17:25:20   Angebot   3600     test  kleinwagen   
+         5       2016-04-04 17:36:23   Angebot    650     test   limousine   
+         6       2016-04-01 20:48:51   Angebot   2200     test      cabrio   
+         7       2016-03-21 18:54:38   Angebot      0     test   limousine   
+         10      2016-03-26 19:54:18   Angebot   2000  control   limousine   
+         11      2016-04-07 10:06:22   Angebot   2799  control       kombi   
+         14      2016-03-21 12:57:01   Angebot  17999  control         suv   
+         17      2016-03-20 10:25:19   Angebot   1750  control  kleinwagen   
+         18      2016-03-23 15:48:05   Angebot   7550     test         bus   
+         19      2016-04-01 22:55:47   Angebot   1850     test         bus   
+         20      2016-04-01 19:56:48   Angebot  10400  control       coupe   
+         21      2016-03-27 11:38:00   Angebot   3699     test   limousine   
+         23      2016-03-12 19:43:07   Angebot    450     test  kleinwagen   
+         24      2016-03-13 20:40:49   Angebot    500     test   limousine   
+         25      2016-03-18 21:44:09   Angebot   2500  control       kombi   
+         27      2016-03-07 12:51:23   Angebot   6900     test   limousine   
+         28      2016-03-09 11:56:38   Angebot   1990     test         bus   
+         29      2016-03-08 19:55:19   Angebot    690     test  kleinwagen   
+         30      2016-04-03 15:48:11   Angebot   3300     test   limousine   
+         33      2016-03-25 21:48:47   Angebot  18000     test   limousine   
+         34      2016-03-17 18:55:12   Angebot   3500  control   limousine   
+         38      2016-04-01 17:45:07   Angebot  11900     test      andere   
+         39      2016-03-25 15:50:30   Angebot   1500     test         bus   
+         43      2016-03-13 15:47:08   Angebot   6990     test   limousine   
+         45      2016-03-29 18:57:46   Angebot    590  control  kleinwagen   
+         46      2016-03-15 18:59:02   Angebot   7999  control   limousine   
+         47      2016-04-04 00:38:22   Angebot   2100     test       kombi   
+         49      2016-04-04 14:06:22   Angebot  13500     test         bus   
+         55      2016-03-26 10:39:35   Angebot    550     test       kombi   
+         {\ldots}                     {\ldots}       {\ldots}    {\ldots}      {\ldots}         {\ldots}   
+         371480  2016-03-26 23:25:24   Angebot   4499  control      cabrio   
+         371481  2016-03-12 16:48:14   Angebot  12800  control      cabrio   
+         371483  2016-03-07 09:54:08   Angebot  20500  control   limousine   
+         371487  2016-03-14 16:52:33   Angebot   3800     test   limousine   
+         371488  2016-03-15 01:51:20   Angebot   2999     test       coupe   
+         371489  2016-03-13 15:45:22   Angebot   7900     test         bus   
+         371490  2016-03-22 10:37:54   Angebot  13850  control       kombi   
+         371491  2016-03-15 20:25:20   Angebot   3200     test   limousine   
+         371492  2016-04-04 14:41:28   Angebot    390     test  kleinwagen   
+         371497  2016-03-05 15:54:11   Angebot   4900  control       kombi   
+         371499  2016-03-08 13:52:00   Angebot    600  control  kleinwagen   
+         371500  2016-03-21 23:40:49   Angebot  20400     test   limousine   
+         371501  2016-03-26 18:36:54   Angebot   3900     test         bus   
+         371502  2016-04-01 12:59:21   Angebot   1600     test       kombi   
+         371503  2016-04-01 01:55:58   Angebot   1700  control  kleinwagen   
+         371505  2016-04-03 19:56:57   Angebot    800     test       kombi   
+         371506  2016-03-20 18:47:59   Angebot   5900     test   limousine   
+         371508  2016-04-02 16:43:27   Angebot   1400  control   limousine   
+         371510  2016-03-06 21:11:23   Angebot   6500     test   limousine   
+         371511  2016-03-31 18:50:37   Angebot   1999  control   limousine   
+         371512  2016-03-25 18:48:06   Angebot   5000     test   limousine   
+         371513  2016-03-21 15:36:22   Angebot   4400  control   limousine   
+         371516  2016-04-04 09:57:12   Angebot   1490  control  kleinwagen   
+         371517  2016-03-28 13:48:07   Angebot   7900     test   limousine   
+         371518  2016-04-02 20:37:03   Angebot   3999     test       kombi   
+         371520  2016-03-19 19:53:49   Angebot   3200  control   limousine   
+         371521  2016-03-27 20:36:20   Angebot   1150  control         bus   
+         371524  2016-03-05 19:56:21   Angebot   1199     test      cabrio   
+         371525  2016-03-19 18:57:12   Angebot   9200     test         bus   
+         371527  2016-03-07 19:39:19   Angebot  28990  control   limousine   
+         
+                 yearOfRegistration    gearbox  powerPS        model  kilometer  \textbackslash{}
+         3                     2001    manuell       75         golf     150000   
+         4                     2008    manuell       69        fabia      90000   
+         5                     1995    manuell      102          3er     150000   
+         6                     2004    manuell      109      2\_reihe     150000   
+         7                     1980    manuell       50       andere      40000   
+         10                    2004    manuell      105      3\_reihe     150000   
+         11                    2005    manuell      140       passat     150000   
+         14                    2011    manuell      190       navara      70000   
+         17                    2004  automatik       75       twingo     150000   
+         18                    2007    manuell      136        c\_max     150000   
+         19                    2004    manuell      102     a\_klasse     150000   
+         20                    2009    manuell      160     scirocco     100000   
+         21                    2002  automatik      231          5er     150000   
+         23                    1997    manuell       50        arosa     150000   
+         24                    1990    manuell      118       andere     150000   
+         25                    2002  automatik      193          5er     150000   
+         27                    2008    manuell       99        civic      60000   
+         28                    1981    manuell       50  transporter       5000   
+         29                    2003    manuell       60        punto     150000   
+         30                    1995  automatik      113     e\_klasse     150000   
+         33                    2007  automatik      218          3er      20000   
+         34                    2004  automatik      122     e\_klasse     150000   
+         38                    2002    manuell      129       andere     150000   
+         39                    1984    manuell       70       andere     150000   
+         43                    2007    manuell       95          one     100000   
+         45                    1999    manuell       75         clio     125000   
+         46                    2007    manuell      177          1er     150000   
+         47                    1998  automatik      193          5er     150000   
+         49                    2012  automatik      109     b\_klasse     150000   
+         55                    1999    manuell        0        astra     150000   
+         {\ldots}                    {\ldots}        {\ldots}      {\ldots}          {\ldots}        {\ldots}   
+         371480                2006  automatik       82     roadster     125000   
+         371481                1991    manuell      211       andere     150000   
+         371483                2012  automatik      136     e\_klasse      60000   
+         371487                2002  automatik      177     e\_klasse     150000   
+         371488                2003    manuell      143       andere     150000   
+         371489                2007    manuell        0     b\_klasse     125000   
+         371490                2012    manuell      156       accord     125000   
+         371491                2002    manuell      116       passat     150000   
+         371492                1997  automatik        0        corsa     100000   
+         371497                2008    manuell      116        astra     150000   
+         371499                1998    manuell       54        corsa     150000   
+         371500                2014  automatik      150         golf      30000   
+         371501                2003  automatik      174      voyager     150000   
+         371502                1998    manuell      125           a4     150000   
+         371503                1999    manuell       68        justy      70000   
+         371505                2000    manuell      101        astra     150000   
+         371506                2006    manuell      105         golf     150000   
+         371508                2001    manuell      125        astra     150000   
+         371510                2003  automatik      145     e\_klasse     150000   
+         371511                1997    manuell      150           a3     150000   
+         371512                2003  automatik      260     e\_klasse     150000   
+         371513                2008    manuell      105         leon     150000   
+         371516                1998    manuell       50         lupo     150000   
+         371517                2010    manuell      140         golf     150000   
+         371518                2005    manuell        3          3er     150000   
+         371520                2004    manuell      225         leon     150000   
+         371521                2000    manuell        0       zafira     150000   
+         371524                2000  automatik      101       fortwo     125000   
+         371525                1996    manuell      102  transporter     150000   
+         371527                2013    manuell      320      m\_reihe      50000   
+         
+                 monthOfRegistration fuelType          brand notRepairedDamage  \textbackslash{}
+         3                         6   benzin     volkswagen              nein   
+         4                         7   diesel          skoda              nein   
+         5                        10   benzin            bmw                ja   
+         6                         8   benzin        peugeot              nein   
+         7                         7   benzin     volkswagen              nein   
+         10                       12   benzin          mazda              nein   
+         11                       12   diesel     volkswagen                ja   
+         14                        3   diesel         nissan              nein   
+         17                        2   benzin        renault              nein   
+         18                        6   diesel           ford              nein   
+         19                        1   benzin  mercedes\_benz              nein   
+         20                        4   benzin     volkswagen              nein   
+         21                        7   benzin            bmw              nein   
+         23                        5   benzin           seat              nein   
+         24                       10   benzin  mercedes\_benz                ja   
+         25                        9   diesel            bmw                ja   
+         27                       11   benzin          honda              nein   
+         28                        1   benzin     volkswagen              nein   
+         29                        3   benzin           fiat              nein   
+         30                        1   diesel  mercedes\_benz              nein   
+         33                        5   benzin            bmw              nein   
+         34                       11   diesel  mercedes\_benz              nein   
+         38                       11   diesel     volkswagen              nein   
+         39                        8   diesel  mercedes\_benz              nein   
+         43                        8   benzin           mini              nein   
+         45                        8   benzin        renault              nein   
+         46                        8   diesel            bmw              nein   
+         47                        2   benzin            bmw              nein   
+         49                        7   diesel  mercedes\_benz              nein   
+         55                        8   diesel           opel                ja   
+         {\ldots}                     {\ldots}      {\ldots}            {\ldots}               {\ldots}   
+         371480                    3   benzin          smart              nein   
+         371481                    7   benzin        porsche              nein   
+         371483                    4   diesel  mercedes\_benz              nein   
+         371487                    5   diesel  mercedes\_benz                ja   
+         371488                    3   benzin  mercedes\_benz                ja   
+         371489                    1   benzin  mercedes\_benz              nein   
+         371490                   10   benzin          honda              nein   
+         371491                    4      lpg     volkswagen              nein   
+         371492                    6   benzin           opel                ja   
+         371497                    2   benzin           opel              nein   
+         371499                    1   benzin           opel              nein   
+         371500                    9   benzin     volkswagen              nein   
+         371501                    7   benzin       chrysler              nein   
+         371502                    2   benzin           audi              nein   
+         371503                   11   benzin         subaru              nein   
+         371505                   11   benzin           opel                ja   
+         371506                    9   diesel     volkswagen              nein   
+         371508                    2   benzin           opel              nein   
+         371510                    3   diesel  mercedes\_benz              nein   
+         371511                   12   benzin           audi              nein   
+         371512                   12   diesel  mercedes\_benz                ja   
+         371513                    7   diesel           seat              nein   
+         371516                    9   benzin     volkswagen              nein   
+         371517                    7   diesel     volkswagen              nein   
+         371518                    5   diesel            bmw              nein   
+         371520                    5   benzin           seat                ja   
+         371521                    3   benzin           opel              nein   
+         371524                    3   benzin          smart              nein   
+         371525                    3   diesel     volkswagen              nein   
+         371527                    8   benzin            bmw              nein   
+         
+                         dateCreated  nrOfPictures  postalCode             lastSeen  
+         3       2016-03-17 00:00:00             0       91074  2016-03-17 17:40:17  
+         4       2016-03-31 00:00:00             0       60437  2016-04-06 10:17:21  
+         5       2016-04-04 00:00:00             0       33775  2016-04-06 19:17:07  
+         6       2016-04-01 00:00:00             0       67112  2016-04-05 18:18:39  
+         7       2016-03-21 00:00:00             0       19348  2016-03-25 16:47:58  
+         10      2016-03-26 00:00:00             0       96224  2016-04-06 10:45:34  
+         11      2016-04-07 00:00:00             0       57290  2016-04-07 10:25:17  
+         14      2016-03-21 00:00:00             0        4177  2016-04-06 07:45:42  
+         17      2016-03-20 00:00:00             0       65599  2016-04-06 13:16:07  
+         18      2016-03-23 00:00:00             0       88361  2016-04-05 18:45:11  
+         19      2016-04-01 00:00:00             0       49565  2016-04-05 22:46:05  
+         20      2016-04-01 00:00:00             0       75365  2016-04-05 16:45:49  
+         21      2016-03-27 00:00:00             0       68309  2016-04-07 06:44:26  
+         23      2016-03-12 00:00:00             0        9526  2016-03-21 01:46:11  
+         24      2016-03-13 00:00:00             0       35390  2016-03-13 20:40:49  
+         25      2016-03-18 00:00:00             0       73765  2016-03-18 21:44:09  
+         27      2016-03-07 00:00:00             0       12621  2016-03-26 09:44:53  
+         28      2016-03-09 00:00:00             0       87471  2016-03-10 07:44:33  
+         29      2016-03-08 00:00:00             0       86199  2016-03-09 11:45:28  
+         30      2016-04-03 00:00:00             0       53879  2016-04-05 15:16:05  
+         33      2016-03-25 00:00:00             0       39179  2016-04-07 04:45:21  
+         34      2016-03-17 00:00:00             0       67071  2016-03-30 15:46:10  
+         38      2016-04-01 00:00:00             0       10551  2016-04-05 12:47:30  
+         39      2016-03-25 00:00:00             0       22767  2016-03-27 03:17:02  
+         43      2016-03-13 00:00:00             0       59174  2016-03-21 17:17:50  
+         45      2016-03-29 00:00:00             0       84180  2016-03-29 18:57:46  
+         46      2016-03-15 00:00:00             0       53604  2016-03-16 16:47:48  
+         47      2016-04-03 00:00:00             0       86157  2016-04-06 08:16:21  
+         49      2016-04-04 00:00:00             0       35576  2016-04-05 12:09:29  
+         55      2016-03-26 00:00:00             0       56759  2016-04-01 23:17:27  
+         {\ldots}                     {\ldots}           {\ldots}         {\ldots}                  {\ldots}  
+         371480  2016-03-26 00:00:00             0       63065  2016-04-07 01:16:17  
+         371481  2016-03-12 00:00:00             0       21147  2016-04-07 06:46:00  
+         371483  2016-03-07 00:00:00             0       77694  2016-04-06 22:15:49  
+         371487  2016-03-14 00:00:00             0       86609  2016-04-05 23:16:30  
+         371488  2016-03-14 00:00:00             0       72766  2016-04-05 13:17:05  
+         371489  2016-03-13 00:00:00             0       30519  2016-03-27 00:18:05  
+         371490  2016-03-22 00:00:00             0       91301  2016-04-05 23:17:04  
+         371491  2016-03-15 00:00:00             0       60439  2016-04-07 03:16:40  
+         371492  2016-04-04 00:00:00             0       17509  2016-04-06 15:46:11  
+         371497  2016-03-05 00:00:00             0       88213  2016-04-05 18:44:48  
+         371499  2016-03-08 00:00:00             0       24850  2016-03-13 00:16:40  
+         371500  2016-03-21 00:00:00             0       38470  2016-04-07 04:17:32  
+         371501  2016-03-26 00:00:00             0       34320  2016-04-06 09:16:04  
+         371502  2016-04-01 00:00:00             0       34414  2016-04-07 09:44:29  
+         371503  2016-03-31 00:00:00             0       90439  2016-04-07 04:16:26  
+         371505  2016-04-03 00:00:00             0       58730  2016-04-05 20:45:39  
+         371506  2016-03-20 00:00:00             0        1217  2016-04-07 02:44:27  
+         371508  2016-04-02 00:00:00             0       23820  2016-04-06 15:18:04  
+         371510  2016-03-05 00:00:00             0       60437  2016-03-12 12:18:05  
+         371511  2016-03-31 00:00:00             0        4275  2016-04-06 12:46:41  
+         371512  2016-03-25 00:00:00             0       90473  2016-04-07 00:44:51  
+         371513  2016-03-21 00:00:00             0       45896  2016-04-06 15:45:01  
+         371516  2016-04-04 00:00:00             0       48653  2016-04-06 11:17:13  
+         371517  2016-03-28 00:00:00             0       75223  2016-04-02 18:16:20  
+         371518  2016-04-02 00:00:00             0       81825  2016-04-06 20:47:12  
+         371520  2016-03-19 00:00:00             0       96465  2016-03-19 20:44:43  
+         371521  2016-03-27 00:00:00             0       26624  2016-03-29 10:17:23  
+         371524  2016-03-05 00:00:00             0       26135  2016-03-11 18:17:12  
+         371525  2016-03-19 00:00:00             0       87439  2016-04-07 07:15:26  
+         371527  2016-03-07 00:00:00             0       73326  2016-03-22 03:17:10  
+         
+         [260956 rows x 18 columns]
+\end{Verbatim}
+            
+    \paragraph{Order Type}\label{order-type}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offerType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Angebot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offerType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} array(['Gesuch', 'Gesuch', 'Gesuch', 'Gesuch'], dtype=object)
+\end{Verbatim}
+            
+    Since there are only 12 cars that are not transacted with the order type
+'angebot' (offering) and we don't care about 'gesuch' or petitioned
+cars, we can delete the rows as well as the order type column offerType.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offerType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Angebot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offerType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} (260952, 17)
+\end{Verbatim}
+            
+    \paragraph{Horsepower}\label{horsepower}
+
+Since all cars are built with the ability to move, we can consider 0 to
+be invalid for powerPS too.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{powerPS} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{powerPS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{thresh}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} (251154, 17)
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
